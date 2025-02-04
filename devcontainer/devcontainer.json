@@ -1,7 +1,17 @@
 {
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
-      "version": "latest"
+      "version": "latest",
+      "startServer": true,          // Tự động khởi động SSH Server
+      "passwordAuthentication": false // Tắt xác thực bằng password
     }
-  }
+  },
+  "forwardPorts": [2222],           // Chuyển tiếp port SSH (tuỳ chọn)
+  "portsAttributes": {
+    "2222": {
+      "label": "SSH",
+      "onAutoForward": "notify"     // Thông báo khi port được forward
+    }
+  },
+  "postCreateCommand": "echo 'export SSH_PORT=2222' >> ~/.bashrc && sudo service ssh restart"
 }
